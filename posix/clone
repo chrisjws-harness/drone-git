@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [[ -n "${DRONE_WORKSPACE}" ]]; then
+if [ -n "${DRONE_WORKSPACE}" ]; then
 	# ensure the unprivileged drone user can write
 	# to the workspace. This is required because
 	# the workspace is a docker volume and is owned
@@ -24,7 +24,7 @@ fi
 # if the netrc enviornment variables exist, write
 # the netrc file.
 
-if [[ ! -z "${DRONE_NETRC_MACHINE}" ]]; then
+if [ ! -z "${DRONE_NETRC_MACHINE}" ]; then
 	cat <<EOF > ${HOME}/.netrc
 machine ${DRONE_NETRC_MACHINE}
 login ${DRONE_NETRC_USERNAME}
@@ -36,7 +36,7 @@ fi
 # the ssh key and add the netrc machine to the
 # known hosts file.
 
-if [[ ! -z "${DRONE_SSH_KEY}" ]]; then
+if [ ! -z "${DRONE_SSH_KEY}" ]; then
 	mkdir ${HOME}/.ssh
 	echo -n "$DRONE_SSH_KEY" > ${HOME}/.ssh/id_rsa
 	chmod 600 ${HOME}/.ssh/id_rsa
@@ -49,7 +49,7 @@ fi
 # AWS codecommit support using AWS access key & secret key
 # Refer: https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-https-unixes.html
 
-if [[ ! -z "$DRONE_AWS_ACCESS_KEY" ]]; then
+if [ ! -z "$DRONE_AWS_ACCESS_KEY" ]; then
 	aws configure set aws_access_key_id $DRONE_AWS_ACCESS_KEY
 	aws configure set aws_secret_access_key $DRONE_AWS_SECRET_KEY
 	aws configure set default.region $DRONE_AWS_REGION
@@ -62,11 +62,11 @@ fi
 # following environment variables:
 
 
-if [[ -z "${DRONE_COMMIT_AUTHOR_NAME}" ]]; then
+if [ -z "${DRONE_COMMIT_AUTHOR_NAME}" ]; then
 	export DRONE_COMMIT_AUTHOR_NAME=drone
 fi
 
-if [[ -z "${DRONE_COMMIT_AUTHOR_EMAIL}" ]]; then
+if [ -z "${DRONE_COMMIT_AUTHOR_EMAIL}" ]; then
 	export DRONE_COMMIT_AUTHOR_EMAIL=drone@localhost
 fi
 
